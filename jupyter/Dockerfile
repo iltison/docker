@@ -1,0 +1,9 @@
+FROM jupyter/r-notebook:678ada768ab1
+
+USER $NB_USER
+RUN mkdir -p /home/jovyan/.ipython/profile_default
+
+RUN R -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'), dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+COPY requirements.txt /home/requirements.txt
+RUN pip install -r /home/requirements.txt
